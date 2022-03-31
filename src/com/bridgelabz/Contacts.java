@@ -87,5 +87,4 @@ public class Contacts {
         setPhoneNum(phoneNumber);
         setZip(zip);
     }
-
 }

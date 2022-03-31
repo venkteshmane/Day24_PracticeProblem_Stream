@@ -1,22 +1,25 @@
 package com.bridgelabz;
 
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AddressBook {
-
     public static Scanner sc = new Scanner(System.in);
-
     public ArrayList<Contacts> contactList = new ArrayList<>();
+    public HashMap<String, ArrayList<Contacts>> personByState;
+    public HashMap<String, ArrayList<Contacts>> personByCity;
 
-    public void addNewContact() {
+    public AddressBook() {
+        personByCity = new HashMap<String, ArrayList<Contacts>>();
+        personByState = new HashMap<String, ArrayList<Contacts>>();
+    }
+
+    public ArrayList<Contacts> addNewContact() {
         // adding new contacts
         System.out.println("Enter the Following Contact Details :");
         System.out.println("Enter the First Name :");
         String firstName = sc.next();
+        checkDuplicate();
         System.out.println("Enter the Last Name :");
         String lastName = sc.next();
         System.out.println("Enter the Address :");
@@ -35,13 +38,24 @@ public class AddressBook {
         Contacts contacts = new Contacts(firstName, lastName, address, city, state, email, phoneNumber, zip);
         contactList.add(contacts);
 
+        if(!personByState.containsKey(state)){
+            personByState.put(state,new ArrayList<Contacts>());
+        }
+        personByState.get(state).add(contacts);
+
+        if(!personByCity.containsKey(city)){
+            personByCity.put(city,new ArrayList<Contacts>());
+        }
+        personByCity.get(city).add(contacts);
+
+        return contactList;
     }
 
     public boolean editContact(String Name) {
         int flag = 0;
         for (Contacts contact : contactList) {
             if (contact.getFirstName().equals(Name)) {
-                System.out.println("Enter the Contact details which you needs to be Updated :");
+                System.out.println("Please Enter the following Contact details which you needs to be Updated :");
 
                 System.out.println("1 : First Name of the Contact to be Edited");
                 System.out.println("2 : Last Name of the contact to be edited");
@@ -50,7 +64,7 @@ public class AddressBook {
                 System.out.println("5 : State of the contact to be edited");
                 System.out.println("6 : Email of the contact to be edited");
                 System.out.println("7 : Phone Number of the contact to be edited");
-                System.out.println("8 : Zip of the contact to be edited");
+                System.out.println("8 : ZipCode of the contact to be edited");
 
                 System.out.println("Select the Following choices for the contact detail you want to edit ");
 
@@ -90,7 +104,7 @@ public class AddressBook {
                     case 6 :
                         System.out.println("Enter Email: ");
                         String email = sc.next();
-                        contact.setZip(email);
+                        contact.setEmailID(email);
                         break;
 
                     case 7 :
@@ -104,9 +118,7 @@ public class AddressBook {
                         String zip = sc.next();
                         contact.setZip(zip);
                         break;
-
                 }
-
                 flag = 1;
                 break;
             }
@@ -114,25 +126,6 @@ public class AddressBook {
         return flag == 1;
     }
 
-    //Method to Delete the Existing Contact
-  /*  public void deleteContact() {
-        //Get First Name to Edit the Contact
-        System.out.println("Enter the First Name : ");
-        String firstName = sc.next();
-        //check if the Given User with First Name
-        boolean isAvailable = false;
-        for(Contacts contact : contactList) {
-            if (firstName.equalsIgnoreCase(contact.getFirstName())) {
-                isAvailable = true;
-                contactList.remove(contact);
-                System.out.println("Contact deleted");
-                break;
-            }
-        }
-        if(!isAvailable) {
-            System.out.println("Contact number is not available");
-        }
-    }*/
     public boolean deleteContact(String name) {
         int flag = 0;
         for (Contacts contact : contactList) {
@@ -145,13 +138,30 @@ public class AddressBook {
         return flag == 1;
     }
 
-    // method created to check the Duplicate entries
+    //UC7- method created to check the Duplicate entries
     public void checkDuplicate() {
         Set<String> ContactSet = new HashSet<>();
         Set<Contacts> filterSet = contactList.stream().filter(n -> !ContactSet.add(n.getFirstName())).collect(Collectors.toSet());
 
         for (Contacts contact : filterSet) {
             System.out.println("The Duplicate Contact Entry is: " + contact.getFirstName() + " " + contact.getLastname());
+        }
+    }
+
+    // UC8- search a person by city name
+    public void getPersonNameByState(String State) {
+        List<Contacts> list  = contactList.stream().filter(p ->p.getCity().equals(State)).collect(Collectors.toList());
+        for(Contacts contact: list){
+            System.out.println("First Name: "+contact.getFirstName());
+            System.out.println("Last Name: "+contact.getLastname());
+        }
+    }
+    // UC8- search a person by name name
+    public void getPersonNameByCity(String cityName) {
+        List<Contacts> list  = contactList.stream().filter(p ->p.getCity().equals(cityName)).collect(Collectors.toList());
+        for(Contacts contact: list){
+            System.out.println("First Name: "+contact.getFirstName());
+            System.out.println("Last Name: "+contact.getLastname());
         }
     }
 }

@@ -78,6 +78,7 @@ public class Contacts {
     }
 
     public Contacts(String firstName, String lastName, String address, String city, String state, String email, String phoneNumber, String zip) {
+
         setFirstName(firstName);
         setLastname(lastName);
         setAddress(address);
@@ -86,5 +87,6 @@ public class Contacts {
         setEmailID(email);
         setPhoneNum(phoneNumber);
         setZip(zip);
+
     }
 }

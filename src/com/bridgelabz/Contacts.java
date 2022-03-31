@@ -86,6 +86,5 @@ public class Contacts {
         setEmailID(email);
         setPhoneNum(phoneNumber);
         setZip(zip);
-
     }
 }

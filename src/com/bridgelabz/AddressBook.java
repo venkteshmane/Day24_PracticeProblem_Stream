@@ -8,14 +8,15 @@ public class AddressBook {
     public ArrayList<Contacts> contactList = new ArrayList<>();
     public HashMap<String, ArrayList<Contacts>> personByState;
     public HashMap<String, ArrayList<Contacts>> personByCity;
-
+//  public ArrayList<Contacts> contactList;
     public AddressBook() {
         personByCity = new HashMap<String, ArrayList<Contacts>>();
         personByState = new HashMap<String, ArrayList<Contacts>>();
+//      contactList = new ArrayList<>();
     }
 
     public ArrayList<Contacts> addNewContact() {
-        // adding new contacts
+        // Adding New Contacts To AddressBook
         System.out.println("Enter the Following Contact Details :");
         System.out.println("Enter the First Name :");
         String firstName = sc.next();
@@ -71,53 +72,54 @@ public class AddressBook {
                 int choice = sc.nextInt();
 
                 switch (choice) {
-                    case 1 :
+                    case 1 -> {
                         System.out.println("Enter First Name: ");
                         String firstName = sc.next();
                         contact.setFirstName(firstName);
                         break;
-
-                    case 2 :
+                    }
+                    case 2 -> {
                         System.out.println("Enter last name: ");
                         String lastName = sc.next();
                         contact.setLastname(lastName);
                         break;
-
-                    case 3 :
+                    }
+                    case 3 -> {
                         System.out.println("Enter Address: ");
                         String address = sc.next();
                         contact.setAddress(address);
                         break;
-
-                    case 4 :
+                    }
+                    case 4 -> {
                         System.out.println("Enter City: ");
                         String city = sc.next();
                         contact.setCity(city);
                         break;
-
-                    case 5 :
+                    }
+                    case 5 -> {
                         System.out.println("Enter State: ");
                         String state = sc.next();
                         contact.setState(state);
                         break;
-
-                    case 6 :
+                    }
+                    case 6 -> {
                         System.out.println("Enter Email: ");
                         String email = sc.next();
                         contact.setEmailID(email);
                         break;
-
-                    case 7 :
+                    }
+                    case 7 -> {
                         System.out.println("Enter Phone Number:");
                         String phoneNumber = sc.next();
                         contact.setPhoneNum(phoneNumber);
                         break;
-
-                    case 8 :
+                    }
+                    case 8 -> {
                         System.out.println("Enter Zip Code: ");
                         String zip = sc.next();
                         contact.setZip(zip);
                         break;
+                    }
                 }
                 flag = 1;
                 break;
@@ -141,24 +143,24 @@ public class AddressBook {
     //UC7- method created to check the Duplicate entries
     public void checkDuplicate() {
         Set<String> ContactSet = new HashSet<>();
-        Set<Contacts> filterSet = contactList.stream().filter(n -> !ContactSet.add(n.getFirstName())).collect(Collectors.toSet());
+        Set<Contacts> filterSet = contactList.stream().filter(contact -> !ContactSet.add(contact.getFirstName())).collect(Collectors.toSet());
 
         for (Contacts contact : filterSet) {
             System.out.println("The Duplicate Contact Entry is: " + contact.getFirstName() + " " + contact.getLastname());
         }
     }
 
-    // UC8- search a person by city name
+    // UC8- searching person by State name
     public void getPersonNameByState(String State) {
-        List<Contacts> list  = contactList.stream().filter(p ->p.getCity().equals(State)).collect(Collectors.toList());
+        List<Contacts> list  = contactList.stream().filter(contactName ->contactName.getState().equals(State)).collect(Collectors.toList());
         for(Contacts contact: list){
             System.out.println("First Name: "+contact.getFirstName());
             System.out.println("Last Name: "+contact.getLastname());
         }
     }
-    // UC8- search a person by name name
+    // UC8- searching person by City Name
     public void getPersonNameByCity(String cityName) {
-        List<Contacts> list  = contactList.stream().filter(p ->p.getCity().equals(cityName)).collect(Collectors.toList());
+        List<Contacts> list  = contactList.stream().filter(contactName ->contactName.getCity().equals(cityName)).collect(Collectors.toList());
         for(Contacts contact: list){
             System.out.println("First Name: "+contact.getFirstName());
             System.out.println("Last Name: "+contact.getLastname());

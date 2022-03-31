@@ -9,6 +9,7 @@ public class AddressBook {
     public HashMap<String, ArrayList<Contacts>> personByState;
     public HashMap<String, ArrayList<Contacts>> personByCity;
 //  public ArrayList<Contacts> contactList;
+
     public AddressBook() {
         personByCity = new HashMap<String, ArrayList<Contacts>>();
         personByState = new HashMap<String, ArrayList<Contacts>>();
@@ -33,7 +34,6 @@ public class AddressBook {
         String email = sc.next();
         System.out.println("Enter the Phone Number :");
         String phoneNumber = sc.next();
-        System.out.println("Enter the Zip Code :");
         System.out.println("Enter the Zip Code :");
         String zip = sc.next();
         Contacts contacts = new Contacts(firstName, lastName, address, city, state, email, phoneNumber, zip);
@@ -158,6 +158,7 @@ public class AddressBook {
             System.out.println("Last Name: "+contact.getLastname());
         }
     }
+
     // UC8- searching person by City Name
     public void getPersonNameByCity(String cityName) {
         List<Contacts> list  = contactList.stream().filter(contactName ->contactName.getCity().equals(cityName)).collect(Collectors.toList());

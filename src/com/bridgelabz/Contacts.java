@@ -2,7 +2,7 @@ package com.bridgelabz;
 
 public class Contacts {
 
-    //Variable Declaration for Contacts Class
+    //Declaring Variables for Contacts Class
     private String firstName;
     private String lastName;
     private String address;
@@ -12,7 +12,7 @@ public class Contacts {
     private String phoneNum;
     private String emailID;
 
-    //Adding Getter and Setter Methods for the Variables
+    //Adding Getter and Setter Methods for the above Variables of Contact class
     public String getFirstName() {
         return firstName;
     }
